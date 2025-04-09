@@ -19,6 +19,8 @@ function getAuthorizationHeader() {
     return $headers;
 }
 
+
+
 $authHeader = getAuthorizationHeader();
 
 if (!$authHeader) {
