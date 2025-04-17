@@ -92,7 +92,7 @@ if (!move_uploaded_file($tmpName, $destination)) {
     exit;
 }
 
-$photo = "http://localhost/Admission_Form/" . $destination;
+$photo = "http://localhost/schoolManagementBackend/SchoolManagementBackend/" . $destination;
 
 
     // Prepare SQL insert

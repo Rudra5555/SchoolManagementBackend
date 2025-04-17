@@ -85,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         if (move_uploaded_file($file["tmp_name"], $targetPath)) {
-            return [true, "http://localhost/Admission_Form/" . $targetPath];
+            return [true, "http://localhost/schoolManagementBackend/SchoolManagementBackend/" . $targetPath];
         }
 
         return [false, "Failed to upload image"];

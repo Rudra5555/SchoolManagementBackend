@@ -9,20 +9,28 @@ header("Content-Type: application/json");
 
 require_once 'jwt_utils.php';
 
-// Step 1: Validate JWT Token
-$headers = getallheaders();
-$authHeader = isset($headers['Authorization']) ? $headers['Authorization'] : null;
-
-if (!$authHeader || !preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
+// Get the Authorization header
+$headers = apache_request_headers();
+if (!isset($headers['Authorization'])) {
     http_response_code(401);
-    echo json_encode(["message" => "Access denied. Token not provided"]);
+    echo json_encode(["status" => "error", "message" => "Unauthorized: No token provided"]);
     exit;
 }
 
-$jwt = $matches[1];
+// Extract Bearer token
+$authHeader = $headers['Authorization'];
+if (preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
+    $jwt = $matches[1];
+} else {
+    http_response_code(401);
+    echo json_encode(["status" => "error", "message" => "Unauthorized: Invalid token format"]);
+    exit;
+}
+
+// Validate the JWT
 if (!is_jwt_valid($jwt)) {
-    http_response_code(403);
-    echo json_encode(["message" => "Access denied. Invalid token"]);
+    http_response_code(401);
+    echo json_encode(["status" => "error", "message" => "Unauthorized: Invalid or expired token"]);
     exit;
 }
 
