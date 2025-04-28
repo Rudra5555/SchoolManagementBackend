@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $stmt->bind_param("sssss", $admission_granted_in_class, $sec, $roll_no, $admission_no, $remarks);
 
-    // 💥 Execute missing tha
+    // Execute missing tha
     if ($stmt->execute()) {
         echo json_encode(["status" => "success", "message" => "Data inserted successfully"]);
     } else {

@@ -51,13 +51,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $mother_Name          = $data['motherName'] ?? null;
     $date                 = $data['date'] ?? null;
     $place                = $data['place'] ?? null;
+    $student_Commute_Method = $data['studentCommuteMethod'] ?? null; // <-- NEW FIELD
 
     // Insert query
     $sql = "INSERT INTO additional_details (
         student_id, distance_From_School, sms_Phone, emergency_Contact,
         contact_Person, contact_Relation, medical_History, guardian_Name,
-        father_Name, mother_Name, date, place
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        father_Name, mother_Name, date, place,student_Commute_Method
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
@@ -66,10 +67,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     $stmt->bind_param(
-        "ssssssssssss",
+        "sssssssssssss",
         $student_id, $distance_From_School, $sms_Phone, $emergency_Contact,
         $contact_Person, $contact_Relation, $medical_History, $guardian_Name,
-        $father_Name, $mother_Name, $date, $place
+        $father_Name, $mother_Name, $date, $place,$student_Commute_Method
     );
 
     if ($stmt->execute()) {

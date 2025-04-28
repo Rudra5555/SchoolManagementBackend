@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (dbNumRows($result) < 1) {
         echo json_encode(['token' => null, 'error' => 'Invalid user']);
     } else {
-        $payload = ['username' => $username, 'exp' => time() + 300]; // token valid for 5 mins
+        $payload = ['username' => $username, 'exp' => time() + 5000]; // token valid for 5 mins
         $jwt = generate_jwt(['alg' => 'HS256', 'typ' => 'JWT'], $payload);
         echo json_encode(['token' => $jwt, 'error' => null]);
     }
