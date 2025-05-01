@@ -10,7 +10,7 @@ header("Content-Type: application/json");
 
 $servername = "localhost";
 $username = "root";
-$password = "1234";
+$password = "";
 $dbname = "admission";
 
 // Create connection

@@ -4,7 +4,7 @@
 * Author : https://www.roytuts.com
 */
 	
-$dbConn = mysqli_connect('localhost', 'root', '1234', 'admission') or die('MySQL connect failed. ' . mysqli_connect_error());
+$dbConn = mysqli_connect('localhost', 'root', '', 'admission') or die('MySQL connect failed. ' . mysqli_connect_error());
 
 function dbQuery($sql) {
 	global $dbConn;

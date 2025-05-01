@@ -11,7 +11,7 @@ require_once 'jwt_utils.php';
 
 $servername = "localhost";
 $username = "root";
-$password = "1234";
+$password = "";
 $dbname = "admission";
 
 // Database connection
