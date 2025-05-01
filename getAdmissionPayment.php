@@ -9,6 +9,30 @@ header("Content-Type: application/json");
 
 require_once 'jwt_utils.php';
 
+$headers = apache_request_headers();
+if (!isset($headers['Authorization'])) {
+    http_response_code(401);
+    echo json_encode(["status" => "error", "message" => "Unauthorized: No token provided"]);
+    exit;
+}
+
+// Extract Bearer token
+$authHeader = $headers['Authorization'];
+if (preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
+    $jwt = $matches[1];
+} else {
+    http_response_code(401);
+    echo json_encode(["status" => "error", "message" => "Unauthorized: Invalid token format"]);
+    exit;
+}
+
+// Validate the JWT
+if (!is_jwt_valid($jwt)) {
+    http_response_code(401);
+    echo json_encode(["status" => "error", "message" => "Unauthorized: Invalid or expired token"]);
+    exit;
+}
+
 $servername = "localhost";
 $username = "root";
 $password = "1234";
